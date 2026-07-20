@@ -210,6 +210,17 @@ function renderResult(){
   setBar(100);
   const total=QUIZ.questions.length;
   const pct=Math.round(score/total*100);
+  function renderResult(){
+
+  setBar(100);
+
+  const total=QUIZ.questions.length;
+
+  const pct=Math.round(score/total*100);
+
+  let line;
+
+  ...
   let line;
   if(pct===100) line="Outstanding — a perfect score!";
   else if(pct>=80) line="Excellent work.";
