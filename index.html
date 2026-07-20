@@ -87,11 +87,11 @@ if(!req("hospital","Enter Hospital / Clinic")) return;
 if(!req("city","Enter City / Practice Location")) return;
 if(!quiz){alert("Select Your Specialty");return;}
 if(!document.getElementById("agree").checked){alert("Please confirm the declaration.");return;}
-localStorage.setItem("doctorName",name.value);
-localStorage.setItem("doctorMobile",mobile.value);
-localStorage.setItem("doctorEmail",email.value);
-localStorage.setItem("doctorHospital",hospital.value);
-localStorage.setItem("doctorCity",city.value);
+localStorage.setItem("doctorName", document.getElementById("name").value);
+localStorage.setItem("doctorMobile", document.getElementById("mobile").value);
+localStorage.setItem("doctorEmail", document.getElementById("email").value);
+localStorage.setItem("doctorHospital", document.getElementById("hospital").value);
+localStorage.setItem("doctorCity", document.getElementById("city").value);
 location.href = quiz;
 }
 </script>
