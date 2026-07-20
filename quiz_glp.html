@@ -224,6 +224,21 @@ function renderResult(){
   setBar(100);
   const total=QUIZ.questions.length;
   const pct=Math.round(score/total*100);
+  fetch("https://script.google.com/macros/s/AKfycbz4fgNR6-9RBnf90x5vobezBVyF8D28QUZ8d3EBT5ffCLvyu0RCD3eigDojxUlVoJJi1w/exec",{
+  method:"POST",
+  headers:{
+    "Content-Type":"text/plain;charset=utf-8"
+  },
+  body:JSON.stringify({
+    name:localStorage.getItem("doctorName"),
+    mobile:localStorage.getItem("doctorMobile"),
+    email:localStorage.getItem("doctorEmail"),
+    hospital:localStorage.getItem("doctorHospital"),
+    city:localStorage.getItem("doctorCity"),
+    specialty:"GLP-1 RA",
+    score:score
+  })
+});
   let line;
   if(pct===100) line="Outstanding — a perfect score!";
   else if(pct>=80) line="Excellent work.";
