@@ -6,150 +6,94 @@
 <title>Regenix Clinical Knowledge Challenge</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
-}
-
 body{
-background:linear-gradient(135deg,#0E7C66,#12A382);
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f7fa;
 display:flex;
 justify-content:center;
 align-items:center;
 min-height:100vh;
-padding:20px;
 }
 
 .container{
-background:#fff;
+background:white;
+width:90%;
 max-width:700px;
-width:100%;
+padding:30px;
 border-radius:20px;
-padding:35px;
-box-shadow:0 20px 50px rgba(0,0,0,.25);
+box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 .logo{
 text-align:center;
-margin-bottom:20px;
 }
 
 .logo img{
-height:85px;
-width:auto;
+height:80px;
 }
 
-.title{
+h1{
 text-align:center;
-font-size:30px;
-font-weight:bold;
 color:#0E7C66;
-margin-bottom:8px;
+margin:10px 0;
 }
 
-.subtitle{
+p{
 text-align:center;
 color:#666;
-margin-bottom:30px;
-}
-
-.info{
-background:#F5FAF8;
-padding:15px;
-border-radius:12px;
-margin-bottom:25px;
-}
-
-.info p{
-margin:8px 0;
-color:#555;
-}
-
-h2{
-color:#0E7C66;
-margin-bottom:15px;
 }
 
 input{
 width:100%;
-padding:15px;
-border:1px solid #ccc;
+padding:14px;
+margin-top:15px;
 border-radius:10px;
-margin-bottom:15px;
+border:1px solid #ccc;
 font-size:16px;
 }
 
-.grid{
+h3{
+margin-top:25px;
+}
+
+.cards{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:15px;
+gap:12px;
 margin-top:15px;
 }
 
 .card{
-border:2px solid #ddd;
-padding:20px;
+padding:18px;
 text-align:center;
-border-radius:15px;
+border:2px solid #ccc;
+border-radius:12px;
 cursor:pointer;
-transition:.3s;
 font-weight:bold;
-background:white;
 }
 
 .card:hover{
-transform:translateY(-4px);
 border-color:#0E7C66;
 }
 
-.card.active{
+.selected{
 background:#0E7C66;
 color:white;
-border-color:#0E7C66;
 }
 
 button{
 margin-top:25px;
 width:100%;
-padding:18px;
-font-size:18px;
-font-weight:bold;
-border:none;
-border-radius:12px;
+padding:16px;
 background:#0E7C66;
 color:white;
+border:none;
+border-radius:10px;
+font-size:18px;
 cursor:pointer;
-transition:.3s;
 }
-
-button:hover{
-background:#0A5D4D;
-}
-
-.footer{
-text-align:center;
-margin-top:20px;
-font-size:14px;
-color:#777;
-}
-
-@media(max-width:700px){
-
-.grid{
-grid-template-columns:1fr;
-}
-
-.container{
-padding:20px;
-}
-
-}
-
 </style>
-
 </head>
 
 <body>
@@ -160,108 +104,77 @@ padding:20px;
 <img src="Regenix Logo New.png" alt="Regenix Logo">
 </div>
 
-<div class="title">
-Clinical Knowledge Challenge
-</div>
+<h1>Clinical Knowledge Challenge</h1>
 
-<div class="subtitle">
-Doctor Conference 2026
-</div>
+<p>Doctor Conference 2026</p>
 
-<div class="info">
-<p>✅ Evidence-Based Questions</p>
-<p>✅ 5 Clinical Specialties</p>
-<p>✅ Mobile Friendly</p>
-<p>🏆 Participate & Win Exciting Gifts</p>
-</div>
+<input id="name" placeholder="Doctor Name">
 
-<h2>Doctor Registration</h2>
+<input id="mobile" placeholder="Mobile Number">
 
-<input type="text" id="name" placeholder="Doctor Name">
+<input id="hospital" placeholder="Hospital / Clinic">
 
-<input type="text" id="mobile" placeholder="Mobile Number">
+<h3>Select Specialty</h3>
 
-<input type="text" id="hospital" placeholder="Hospital / Clinic">
+<div class="cards">
 
-<h2>Select Your Specialty</h2>
+<div class="card" onclick="pick(this,'quiz_diabetology_1.html')">🟢<br>Diabetology</div>
 
-<div class="grid">
+<div class="card" onclick="pick(this,'quiz_cardiology.html')">❤️<br>Cardiology</div>
 
-<div class="card" onclick="selectCard(this,'quiz_diabetology_1.html')">
-🟢<br><br>Diabetology
-</div>
+<div class="card" onclick="pick(this,'quiz_physicians.html')">🩺<br>Physicians</div>
 
-<div class="card" onclick="selectCard(this,'quiz_cardiology.html')">
-❤️<br><br>Cardiology
-</div>
+<div class="card" onclick="pick(this,'quiz_oha.html')">💊<br>OHA</div>
 
-<div class="card" onclick="selectCard(this,'quiz_physicians.html')">
-🩺<br><br>Physicians
-</div>
-
-<div class="card" onclick="selectCard(this,'quiz_oha.html')">
-💊<br><br>OHA
-</div>
-
-<div class="card" onclick="selectCard(this,'quiz_glp.html')">
-🧬<br><br>GLP-1 Receptor Agonists
-</div>
+<div class="card" onclick="pick(this,'quiz_glp.html')">🧬<br>GLP-1 RA</div>
 
 </div>
 
-<button onclick="startQuiz()">
-START CHALLENGE
-</button>
-
-<div class="footer">
-Powered by Regenix Drugs Ltd.
-</div>
+<button onclick="startQuiz()">START CHALLENGE</button>
 
 </div>
 
 <script>
 
-let selectedQuiz="";
+let quiz="";
 
-function selectCard(card,file){
+function pick(card,file){
 
-document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
+document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
 
-card.classList.add("active");
+card.classList.add("selected");
 
-selectedQuiz=file;
+quiz=file;
 
 }
 
 function startQuiz(){
 
-const name=document.getElementById("name").value.trim();
-
-const mobile=document.getElementById("mobile").value.trim();
-
-const hospital=document.getElementById("hospital").value.trim();
-
-if(name=="" || mobile=="" || hospital==""){
-
-alert("Please enter all doctor details.");
-
+if(document.getElementById("name").value==""){
+alert("Enter Doctor Name");
 return;
-
 }
 
-if(selectedQuiz==""){
-
-alert("Please select a specialty.");
-
+if(document.getElementById("mobile").value==""){
+alert("Enter Mobile Number");
 return;
-
 }
 
-localStorage.setItem("doctorName",name);
-localStorage.setItem("doctorMobile",mobile);
-localStorage.setItem("doctorHospital",hospital);
+if(document.getElementById("hospital").value==""){
+alert("Enter Hospital Name");
+return;
+}
 
-window.location.href=selectedQuiz;
+if(quiz==""){
+alert("Select Specialty");
+return;
+}
+
+localStorage.setItem("doctorName",document.getElementById("name").value);
+localStorage.setItem("doctorMobile",document.getElementById("mobile").value);
+localStorage.setItem("doctorHospital",document.getElementById("hospital").value);
+
+location.href=quiz;
 
 }
 
