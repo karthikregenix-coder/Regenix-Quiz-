@@ -92,7 +92,29 @@ localStorage.setItem("doctorMobile",mobile.value);
 localStorage.setItem("doctorEmail",email.value);
 localStorage.setItem("doctorHospital",hospital.value);
 localStorage.setItem("doctorCity",city.value);
-location.href=quiz;
+
+fetch("https://script.google.com/macros/s/AKfycbz4fgNR6-9RBnf90x5vobezBVyF8D28QUZ8d3EBT5ffCLvyu0RCD3eigDojxUlVoJJi1w/exec",{
+  method:"POST",
+  redirect:"follow",
+  headers:{
+    "Content-Type":"text/plain;charset=utf-8"
+  },
+  body:JSON.stringify({
+    name:name.value,
+    mobile:mobile.value,
+    email:email.value,
+    hospital:hospital.value,
+    city:city.value,
+    specialty:quiz,
+    score:0
+  })
+})
+.then(()=>{
+    location.href=quiz;
+})
+.catch(()=>{
+    alert("Unable to save registration. Please try again.");
+});
 }
 </script>
 </body>
