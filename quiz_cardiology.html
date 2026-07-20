@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Hypertension Management Quiz — Cardiology Conference</title>
+<style>
+  :root{
+    --brand:#b02a4a; --brand-dark:#8a1f39; --brand-light:#fbe0e6;
+    --bg1:#b02a4a; --bg2:#d94166;
+    --correct:#1a9e5f; --correct-bg:#e3f7ec;
+    --wrong:#d64545; --wrong-bg:#fdeaea;
+    --ink:#3a1620; --muted:#8a6b72;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(160deg,var(--bg1),var(--bg2));
+    color:var(--ink); min-height:100%; display:flex; align-items:center; justify-content:center;
+    padding:16px;
+  }
+  .app{
+    width:100%; max-width:640px; background:#fff; border-radius:26px;
+    box-shadow:0 24px 60px rgba(0,0,0,.28); overflow:hidden; display:flex; flex-direction:column;
+  }
+  header{
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff; padding:22px 26px;
+  }
+  .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:700;}
+  header h1{margin:6px 0 0;font-size:22px;line-height:1.25;}
+  .bar{height:6px;background:rgba(255,255,255,.25);}
+  .bar > span{display:block;height:100%;width:0;background:#fff;transition:width .4s ease;}
+  .stage{padding:26px;min-height:420px;display:flex;flex-direction:column;justify-content:center;}
+  .start p{font-size:16px;line-height:1.6;color:var(--muted);margin:0 0 22px;}
+  .start .meta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px;}
+  .chip{background:var(--brand-light);color:var(--brand-dark);font-weight:700;font-size:14px;
+    padding:9px 15px;border-radius:999px;}
+  .btn{
+    appearance:none;border:0;cursor:pointer;font-weight:800;font-size:18px;
+    padding:18px 22px;border-radius:16px;background:var(--brand);color:#fff;width:100%;
+    transition:transform .08s ease,filter .15s ease;
+  }
+  .btn:active{transform:scale(.98);filter:brightness(1.05);}
+  .btn.secondary{background:#f6eaed;color:var(--brand-dark);}
+  .qcount{font-size:14px;font-weight:700;color:var(--muted);margin-bottom:8px;}
+  .qtext{font-size:21px;font-weight:800;line-height:1.4;margin:0 0 20px;}
+  .options{display:flex;flex-direction:column;gap:12px;}
+  .opt{
+    text-align:left;border:2px solid #eedde1;background:#fff;border-radius:16px;
+    padding:17px 18px;font-size:17px;font-weight:600;color:var(--ink);cursor:pointer;
+    display:flex;align-items:center;gap:13px;transition:border-color .15s,background .15s,transform .08s;
+  }
+  .opt:active{transform:scale(.99);}
+  .opt .let{
+    flex:0 0 32px;height:32px;border-radius:9px;background:var(--brand-light);color:var(--brand-dark);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;
+  }
+  .opt.correct{border-color:var(--correct);background:var(--correct-bg);}
+  .opt.correct .let{background:var(--correct);color:#fff;}
+  .opt.wrong{border-color:var(--wrong);background:var(--wrong-bg);}
+  .opt.wrong .let{background:var(--wrong);color:#fff;}
+  .opt.disabled{pointer-events:none;opacity:.75;}
+  .opt.correct.disabled,.opt.wrong.disabled{opacity:1;}
+  .explain{
+    margin-top:18px;border-radius:16px;padding:16px 18px;font-size:15.5px;line-height:1.55;
+    background:#fbf3f5;border-left:5px solid var(--brand);display:none;
+  }
+  .explain.show{display:block;animation:fade .3s ease;}
+  .explain .verdict{font-weight:800;margin-bottom:5px;display:block;}
+  .explain .verdict.ok{color:var(--correct);}
+  .explain .verdict.no{color:var(--wrong);}
+  .explain .ref{margin-top:9px;font-size:13px;color:var(--muted);font-style:italic;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .foot{margin-top:20px;}
+  .result{text-align:center;}
+  .score-ring{font-size:52px;font-weight:900;color:var(--brand-dark);margin:6px 0;}
+  .result .sub{font-size:17px;color:var(--muted);margin-bottom:8px;}
+  .verdict-line{font-size:19px;font-weight:800;margin:14px 0 24px;}
+  .hide{display:none!important;}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="kicker">Cardiology Conference</div>
+    <h1>Hypertension Management Challenge</h1>
+  </header>
+  <div class="bar"><span id="bar"></span></div>
+  <div class="stage" id="stage"></div>
+</div>
+
+<script>
+const QUIZ = {
+  intro: "Test your hypertension management knowledge across 5 quick questions — from definitions to resistant disease. Tap an answer to see the correct response and a short rationale.",
+  chips: ["5 questions", "Mixed difficulty", "With rationale"],
+  questions: [
+    {
+      q: "Per the ACC/AHA classification, what blood pressure range defines Stage 1 hypertension?",
+      options: ["120–129 / <80 mmHg", "130–139 / 80–89 mmHg", "140–159 / 90–99 mmHg", "≥160 / ≥100 mmHg"],
+      answer: 1,
+      why: "Under the 2017 ACC/AHA classification, 120–129/<80 is 'elevated' BP, 130–139 or 80–89 mmHg is Stage 1 hypertension, and ≥140/90 is Stage 2. (Note the ESC/ESH framework uses different cut-offs, defining hypertension as ≥140/90.)",
+      ref: "ACC/AHA 2017 Hypertension Guideline"
+    },
+    {
+      q: "Which drug class is NOT generally recommended as an initial first-line agent for uncomplicated hypertension?",
+      options: ["Thiazide/thiazide-like diuretic", "Calcium channel blocker", "ACE inhibitor or ARB", "Beta-blocker"],
+      answer: 3,
+      why: "First-line therapy for uncomplicated hypertension is a thiazide-type diuretic, a CCB, or an ACE inhibitor/ARB. Beta-blockers are reserved for compelling indications such as coronary disease, heart failure, or certain arrhythmias, rather than routine first-line use.",
+      ref: "ACC/AHA & ESC Hypertension Guidelines"
+    },
+    {
+      q: "A hypertensive patient has type 2 diabetes with albuminuria. Which antihypertensive class is preferred?",
+      options: ["ACE inhibitor or ARB", "Non-dihydropyridine CCB", "Alpha-blocker", "Loop diuretic"],
+      answer: 0,
+      why: "ACE inhibitors or ARBs are preferred when hypertension coexists with diabetes and albuminuria because they reduce albuminuria and slow progression of diabetic kidney disease. They should not be combined with one another.",
+      ref: "ACC/AHA / KDIGO"
+    },
+    {
+      q: "For most adults with confirmed hypertension, what is the recommended treated blood pressure target under ACC/AHA guidance?",
+      options: ["<150/90 mmHg", "<140/90 mmHg", "<130/80 mmHg", "<120/70 mmHg"],
+      answer: 2,
+      why: "The ACC/AHA guideline recommends a target of <130/80 mmHg for most adults with hypertension, including those with diabetes or CKD, provided it is tolerated. Targets are individualised in the very elderly or frail.",
+      ref: "ACC/AHA 2017 Hypertension Guideline"
+    },
+    {
+      q: "A patient remains above goal on a maximally tolerated ACE inhibitor, CCB, and thiazide diuretic. What is the preferred add-on for resistant hypertension?",
+      options: ["Clonidine", "Spironolactone", "Hydralazine", "A second dihydropyridine CCB"],
+      answer: 1,
+      why: "In resistant hypertension (uncontrolled on three agents including a diuretic), a mineralocorticoid receptor antagonist — spironolactone — is the preferred fourth-line add-on, supported by the PATHWAY-2 trial. Monitor potassium and renal function.",
+      ref: "ACC/AHA / PATHWAY-2"
+    }
+  ]
+};
+</script>
+
+<script>
+const stage=document.getElementById('stage');
+const bar=document.getElementById('bar');
+let idx=0, score=0, answered=false;
+function setBar(p){bar.style.width=p+'%';}
+function renderStart(){
+  setBar(0);
+  const chips=QUIZ.chips.map(c=>`<span class="chip">${c}</span>`).join('');
+  stage.innerHTML=`
+    <div class="start">
+      <p>${QUIZ.intro}</p>
+      <div class="meta">${chips}</div>
+      <button class="btn" id="startBtn">Start the quiz</button>
+    </div>`;
+  document.getElementById('startBtn').onclick=()=>{idx=0;score=0;renderQ();};
+}
+function renderQ(){
+  answered=false;
+  const item=QUIZ.questions[idx];
+  setBar(Math.round((idx)/QUIZ.questions.length*100));
+  const opts=item.options.map((o,i)=>`
+    <button class="opt" data-i="${i}">
+      <span class="let">${String.fromCharCode(65+i)}</span><span>${o}</span>
+    </button>`).join('');
+  stage.innerHTML=`
+    <div class="qwrap">
+      <div class="qcount">Question ${idx+1} of ${QUIZ.questions.length} · Score ${score}</div>
+      <p class="qtext">${item.q}</p>
+      <div class="options">${opts}</div>
+      <div class="explain" id="explain"></div>
+      <div class="foot hide" id="foot">
+        <button class="btn" id="nextBtn">${idx===QUIZ.questions.length-1?'See my result':'Next question'}</button>
+      </div>
+    </div>`;
+  stage.querySelectorAll('.opt').forEach(b=>b.onclick=()=>choose(parseInt(b.dataset.i)));
+}
+function choose(i){
+  if(answered)return; answered=true;
+  const item=QUIZ.questions[idx];
+  const opts=stage.querySelectorAll('.opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const correct=item.answer;
+  opts[correct].classList.add('correct');
+  const ok=i===correct;
+  if(ok){score++;}else{opts[i].classList.add('wrong');}
+  const ex=document.getElementById('explain');
+  ex.innerHTML=`
+    <span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Not quite'}</span>
+    ${item.why}
+    <div class="ref">Reference: ${item.ref}</div>`;
+  ex.classList.add('show');
+  const foot=document.getElementById('foot');
+  foot.classList.remove('hide');
+  document.getElementById('nextBtn').onclick=()=>{
+    idx++;
+    if(idx<QUIZ.questions.length){renderQ();}else{renderResult();}
+  };
+}
+function renderResult(){
+  setBar(100);
+  const total=QUIZ.questions.length;
+  const pct=Math.round(score/total*100);
+  let line;
+  if(pct===100) line="Outstanding — a perfect score!";
+  else if(pct>=80) line="Excellent work.";
+  else if(pct>=60) line="Solid — a good grasp of the essentials.";
+  else if(pct>=40) line="Not bad — worth a quick refresher.";
+  else line="A good chance to brush up.";
+  stage.innerHTML=`
+    <div class="result">
+      <div class="sub">You scored</div>
+      <div class="score-ring">${score} / ${total}</div>
+      <div class="sub">${pct}%</div>
+      <div class="verdict-line">${line}</div>
+      <button class="btn" id="againBtn">Play again</button>
+      <button class="btn secondary" id="homeBtn" style="margin-top:12px;">Back to start</button>
+    </div>`;
+  document.getElementById('againBtn').onclick=()=>{idx=0;score=0;renderQ();};
+  document.getElementById('homeBtn').onclick=renderStart;
+}
+renderStart();
+</script>
+</body>
+</html>

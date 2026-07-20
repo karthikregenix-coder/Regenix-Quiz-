@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Diabetes & Hypertension Quiz — Physicians Conference</title>
+<style>
+  :root{
+    --brand:#2456a6; --brand-dark:#1a3f7d; --brand-light:#dbe7fa;
+    --bg1:#2456a6; --bg2:#3a74cf;
+    --correct:#1a9e5f; --correct-bg:#e3f7ec;
+    --wrong:#d64545; --wrong-bg:#fdeaea;
+    --ink:#14243d; --muted:#5f7192;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(160deg,var(--bg1),var(--bg2));
+    color:var(--ink); min-height:100%; display:flex; align-items:center; justify-content:center;
+    padding:16px;
+  }
+  .app{
+    width:100%; max-width:640px; background:#fff; border-radius:26px;
+    box-shadow:0 24px 60px rgba(0,0,0,.28); overflow:hidden; display:flex; flex-direction:column;
+  }
+  header{
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff; padding:22px 26px;
+  }
+  .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:700;}
+  header h1{margin:6px 0 0;font-size:22px;line-height:1.25;}
+  .bar{height:6px;background:rgba(255,255,255,.25);}
+  .bar > span{display:block;height:100%;width:0;background:#fff;transition:width .4s ease;}
+  .stage{padding:26px;min-height:420px;display:flex;flex-direction:column;justify-content:center;}
+  .start p{font-size:16px;line-height:1.6;color:var(--muted);margin:0 0 22px;}
+  .start .meta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px;}
+  .chip{background:var(--brand-light);color:var(--brand-dark);font-weight:700;font-size:14px;
+    padding:9px 15px;border-radius:999px;}
+  .btn{
+    appearance:none;border:0;cursor:pointer;font-weight:800;font-size:18px;
+    padding:18px 22px;border-radius:16px;background:var(--brand);color:#fff;width:100%;
+    transition:transform .08s ease,filter .15s ease;
+  }
+  .btn:active{transform:scale(.98);filter:brightness(1.05);}
+  .btn.secondary{background:#eaf0fa;color:var(--brand-dark);}
+  .qcount{font-size:14px;font-weight:700;color:var(--muted);margin-bottom:8px;}
+  .qtext{font-size:21px;font-weight:800;line-height:1.4;margin:0 0 20px;}
+  .options{display:flex;flex-direction:column;gap:12px;}
+  .opt{
+    text-align:left;border:2px solid #dde6f3;background:#fff;border-radius:16px;
+    padding:17px 18px;font-size:17px;font-weight:600;color:var(--ink);cursor:pointer;
+    display:flex;align-items:center;gap:13px;transition:border-color .15s,background .15s,transform .08s;
+  }
+  .opt:active{transform:scale(.99);}
+  .opt .let{
+    flex:0 0 32px;height:32px;border-radius:9px;background:var(--brand-light);color:var(--brand-dark);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;
+  }
+  .opt.correct{border-color:var(--correct);background:var(--correct-bg);}
+  .opt.correct .let{background:var(--correct);color:#fff;}
+  .opt.wrong{border-color:var(--wrong);background:var(--wrong-bg);}
+  .opt.wrong .let{background:var(--wrong);color:#fff;}
+  .opt.disabled{pointer-events:none;opacity:.75;}
+  .opt.correct.disabled,.opt.wrong.disabled{opacity:1;}
+  .explain{
+    margin-top:18px;border-radius:16px;padding:16px 18px;font-size:15.5px;line-height:1.55;
+    background:#f2f6fc;border-left:5px solid var(--brand);display:none;
+  }
+  .explain.show{display:block;animation:fade .3s ease;}
+  .explain .verdict{font-weight:800;margin-bottom:5px;display:block;}
+  .explain .verdict.ok{color:var(--correct);}
+  .explain .verdict.no{color:var(--wrong);}
+  .explain .ref{margin-top:9px;font-size:13px;color:var(--muted);font-style:italic;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .foot{margin-top:20px;}
+  .result{text-align:center;}
+  .score-ring{font-size:52px;font-weight:900;color:var(--brand-dark);margin:6px 0;}
+  .result .sub{font-size:17px;color:var(--muted);margin-bottom:8px;}
+  .verdict-line{font-size:19px;font-weight:800;margin:14px 0 24px;}
+  .hide{display:none!important;}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="kicker">Physicians Conference</div>
+    <h1>Diabetes &amp; Hypertension Challenge</h1>
+  </header>
+  <div class="bar"><span id="bar"></span></div>
+  <div class="stage" id="stage"></div>
+</div>
+
+<script>
+const QUIZ = {
+  intro: "Test your everyday management of diabetes and hypertension across 5 quick questions. Tap an answer to see the correct response and a short rationale.",
+  chips: ["5 questions", "Mixed difficulty", "With rationale"],
+  questions: [
+    {
+      q: "Which single lifestyle change helps lower BOTH blood pressure and blood glucose?",
+      options: ["Increasing dietary sodium", "Weight loss with regular physical activity", "Higher saturated-fat intake", "Reducing water intake"],
+      answer: 1,
+      why: "Weight reduction combined with regular aerobic activity improves insulin sensitivity and glycaemic control while also lowering blood pressure — one of the highest-yield shared interventions in patients with both conditions.",
+      ref: "ADA / ACC-AHA Lifestyle Recommendations"
+    },
+    {
+      q: "For a patient with both hypertension and type 2 diabetes, which antihypertensive class is generally preferred first?",
+      options: ["Beta-blocker", "ACE inhibitor or ARB", "Alpha-blocker", "Central agonist"],
+      answer: 1,
+      why: "An ACE inhibitor or ARB is preferred when hypertension and diabetes coexist, particularly with albuminuria, because of added renal protection. A CCB or thiazide is commonly added to reach target.",
+      ref: "ADA / ACC-AHA"
+    },
+    {
+      q: "How should kidney status be monitored at least annually in a patient with diabetes?",
+      options: ["Urine dipstick for glucose only", "Serum creatinine alone", "eGFR plus urine albumin-to-creatinine ratio", "24-hour urine output"],
+      answer: 2,
+      why: "Annual assessment of both eGFR and urine albumin-to-creatinine ratio (UACR) is recommended in diabetes to detect diabetic kidney disease early — albuminuria often precedes a fall in eGFR.",
+      ref: "ADA Standards of Care / KDIGO"
+    },
+    {
+      q: "For most adults aged 40–75 with diabetes and no known cardiovascular disease, what lipid-lowering approach is recommended?",
+      options: ["No statin unless LDL very high", "Moderate-intensity statin therapy", "Fibrate as first choice", "Niacin as first choice"],
+      answer: 1,
+      why: "Guidelines recommend at least moderate-intensity statin therapy for most patients aged 40–75 with diabetes, regardless of baseline LDL, with high-intensity statin used when additional ASCVD risk factors are present.",
+      ref: "ADA / ACC-AHA Cholesterol Guideline"
+    },
+    {
+      q: "Which feature most distinguishes hyperosmolar hyperglycaemic state (HHS) from diabetic ketoacidosis (DKA)?",
+      options: ["Marked ketoacidosis with low pH", "Severe hyperglycaemia and high osmolality without significant ketoacidosis", "Always occurs in type 1 diabetes", "Normal blood glucose"],
+      answer: 1,
+      why: "HHS is characterised by profound hyperglycaemia (often >600 mg/dL) and high serum osmolality with only minimal ketosis and little or no acidosis — unlike DKA, which features significant ketoacidosis. Both are medical emergencies requiring fluids and insulin.",
+      ref: "ADA Hyperglycaemic Crises Guidance"
+    }
+  ]
+};
+</script>
+
+<script>
+const stage=document.getElementById('stage');
+const bar=document.getElementById('bar');
+let idx=0, score=0, answered=false;
+function setBar(p){bar.style.width=p+'%';}
+function renderStart(){
+  setBar(0);
+  const chips=QUIZ.chips.map(c=>`<span class="chip">${c}</span>`).join('');
+  stage.innerHTML=`
+    <div class="start">
+      <p>${QUIZ.intro}</p>
+      <div class="meta">${chips}</div>
+      <button class="btn" id="startBtn">Start the quiz</button>
+    </div>`;
+  document.getElementById('startBtn').onclick=()=>{idx=0;score=0;renderQ();};
+}
+function renderQ(){
+  answered=false;
+  const item=QUIZ.questions[idx];
+  setBar(Math.round((idx)/QUIZ.questions.length*100));
+  const opts=item.options.map((o,i)=>`
+    <button class="opt" data-i="${i}">
+      <span class="let">${String.fromCharCode(65+i)}</span><span>${o}</span>
+    </button>`).join('');
+  stage.innerHTML=`
+    <div class="qwrap">
+      <div class="qcount">Question ${idx+1} of ${QUIZ.questions.length} · Score ${score}</div>
+      <p class="qtext">${item.q}</p>
+      <div class="options">${opts}</div>
+      <div class="explain" id="explain"></div>
+      <div class="foot hide" id="foot">
+        <button class="btn" id="nextBtn">${idx===QUIZ.questions.length-1?'See my result':'Next question'}</button>
+      </div>
+    </div>`;
+  stage.querySelectorAll('.opt').forEach(b=>b.onclick=()=>choose(parseInt(b.dataset.i)));
+}
+function choose(i){
+  if(answered)return; answered=true;
+  const item=QUIZ.questions[idx];
+  const opts=stage.querySelectorAll('.opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const correct=item.answer;
+  opts[correct].classList.add('correct');
+  const ok=i===correct;
+  if(ok){score++;}else{opts[i].classList.add('wrong');}
+  const ex=document.getElementById('explain');
+  ex.innerHTML=`
+    <span class="verdict ${ok?'ok':'no'}">${ok?'✓ Correct':'✗ Not quite'}</span>
+    ${item.why}
+    <div class="ref">Reference: ${item.ref}</div>`;
+  ex.classList.add('show');
+  const foot=document.getElementById('foot');
+  foot.classList.remove('hide');
+  document.getElementById('nextBtn').onclick=()=>{
+    idx++;
+    if(idx<QUIZ.questions.length){renderQ();}else{renderResult();}
+  };
+}
+function renderResult(){
+  setBar(100);
+  const total=QUIZ.questions.length;
+  const pct=Math.round(score/total*100);
+  let line;
+  if(pct===100) line="Outstanding — a perfect score!";
+  else if(pct>=80) line="Excellent work.";
+  else if(pct>=60) line="Solid — a good grasp of the essentials.";
+  else if(pct>=40) line="Not bad — worth a quick refresher.";
+  else line="A good chance to brush up.";
+  stage.innerHTML=`
+    <div class="result">
+      <div class="sub">You scored</div>
+      <div class="score-ring">${score} / ${total}</div>
+      <div class="sub">${pct}%</div>
+      <div class="verdict-line">${line}</div>
+      <button class="btn" id="againBtn">Play again</button>
+      <button class="btn secondary" id="homeBtn" style="margin-top:12px;">Back to start</button>
+    </div>`;
+  document.getElementById('againBtn').onclick=()=>{idx=0;score=0;renderQ();};
+  document.getElementById('homeBtn').onclick=renderStart;
+}
+renderStart();
+</script>
+</body>
+</html>
