@@ -104,15 +104,28 @@ cursor:pointer;
 <img src="Regenix Logo New.png" alt="Regenix Logo">
 </div>
 
-<h1>Clinical Knowledge Challenge</h1>
+<h1>Clinical Knowledge Challenge 2026</h1>
 
-<p>Doctor Conference 2026</p>
+<p><strong>Test Your Clinical Expertise</strong></p>
 
-<input id="name" placeholder="Doctor Name">
+<p>
+Welcome to the Regenix Clinical Knowledge Challenge.
+Complete your registration, choose your specialty,
+and answer five evidence-based clinical questions.
+The challenge takes approximately 3 minutes.
+After completion, kindly visit the Regenix Stall
+to receive your participation gift.
+</p>
 
-<input id="mobile" placeholder="Mobile Number">
+<input id="name" placeholder="Doctor Name *">
 
-<input id="hospital" placeholder="Hospital / Clinic">
+<input id="mobile" placeholder="Mobile Number *">
+
+<input id="email" type="email" placeholder="Email ID *">
+
+<input id="hospital" placeholder="Hospital / Clinic *">
+
+<input id="city" placeholder="City / Practice Location *">
 
 <h3>Select Specialty</h3>
 
@@ -130,7 +143,7 @@ cursor:pointer;
 
 </div>
 
-<button onclick="startQuiz()">START CHALLENGE</button>
+<button onclick="startQuiz()">START CLINICAL CHALLENGE →</button>
 
 </div>
 
@@ -164,6 +177,15 @@ if(document.getElementById("hospital").value==""){
 alert("Enter Hospital Name");
 return;
 }
+if(document.getElementById("email").value==""){
+alert("Enter Email ID");
+return;
+}
+
+if(document.getElementById("city").value==""){
+alert("Enter City / Practice Location");
+return;
+}
 
 if(quiz==""){
 alert("Select Specialty");
@@ -171,8 +193,14 @@ return;
 }
 
 localStorage.setItem("doctorName",document.getElementById("name").value);
+
 localStorage.setItem("doctorMobile",document.getElementById("mobile").value);
+
+localStorage.setItem("doctorEmail",document.getElementById("email").value);
+
 localStorage.setItem("doctorHospital",document.getElementById("hospital").value);
+
+localStorage.setItem("doctorCity",document.getElementById("city").value);
 
 location.href=quiz;
 
