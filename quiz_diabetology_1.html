@@ -25,9 +25,22 @@
     box-shadow:0 24px 60px rgba(0,0,0,.28); overflow:hidden; display:flex; flex-direction:column;
   }
   header{
+    position:relative;
     background:linear-gradient(135deg,var(--brand),var(--brand-dark));
-    color:#fff; padding:22px 26px;
-  }
+    color:#fff;
+    padding:22px 26px;
+}
+
+.brand-logo{
+    position:absolute;
+    top:12px;
+    right:20px;
+}
+
+.brand-logo img{
+    height:42px;
+    width:auto;
+}
   .kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:700;}
   header h1{margin:6px 0 0;font-size:22px;line-height:1.25;}
   .bar{height:6px;background:rgba(255,255,255,.25);}
@@ -90,13 +103,17 @@
 </head>
 <body>
 <div class="app">
-  <header>
+ <header>
+
+    <div class="brand-logo">
+        <img src="./Sustaglar.png" alt="SUSTAGLAR">
+    </div>
+
     <div class="kicker">Diabetology Conference</div>
+
     <h1>Diabetes Management Challenge</h1>
-  </header>
-  <div class="bar"><span id="bar"></span></div>
-  <div class="stage" id="stage"></div>
-</div>
+
+</header>
 
 <script>
 const QUIZ = {
