@@ -96,42 +96,74 @@ const QUIZ = {
   intro: "Test your everyday management of diabetes and hypertension across 5 quick questions. Tap an answer to see the correct response and a short rationale.",
   chips: ["5 questions", "Mixed difficulty", "With rationale"],
   questions: [
-    {
-      q: "Which single lifestyle change helps lower BOTH blood pressure and blood glucose?",
-      options: ["Increasing dietary sodium", "Weight loss with regular physical activity", "Higher saturated-fat intake", "Reducing water intake"],
-      answer: 1,
-      why: "Weight reduction combined with regular aerobic activity improves insulin sensitivity and glycaemic control while also lowering blood pressure — one of the highest-yield shared interventions in patients with both conditions.",
-      ref: "ADA / ACC-AHA Lifestyle Recommendations"
-    },
-    {
-      q: "For a patient with both hypertension and type 2 diabetes, which antihypertensive class is generally preferred first?",
-      options: ["Beta-blocker", "ACE inhibitor or ARB", "Alpha-blocker", "Central agonist"],
-      answer: 1,
-      why: "An ACE inhibitor or ARB is preferred when hypertension and diabetes coexist, particularly with albuminuria, because of added renal protection. A CCB or thiazide is commonly added to reach target.",
-      ref: "ADA / ACC-AHA"
-    },
-    {
-      q: "How should kidney status be monitored at least annually in a patient with diabetes?",
-      options: ["Urine dipstick for glucose only", "Serum creatinine alone", "eGFR plus urine albumin-to-creatinine ratio", "24-hour urine output"],
-      answer: 2,
-      why: "Annual assessment of both eGFR and urine albumin-to-creatinine ratio (UACR) is recommended in diabetes to detect diabetic kidney disease early — albuminuria often precedes a fall in eGFR.",
-      ref: "ADA Standards of Care / KDIGO"
-    },
-    {
-      q: "For most adults aged 40–75 with diabetes and no known cardiovascular disease, what lipid-lowering approach is recommended?",
-      options: ["No statin unless LDL very high", "Moderate-intensity statin therapy", "Fibrate as first choice", "Niacin as first choice"],
-      answer: 1,
-      why: "Guidelines recommend at least moderate-intensity statin therapy for most patients aged 40–75 with diabetes, regardless of baseline LDL, with high-intensity statin used when additional ASCVD risk factors are present.",
-      ref: "ADA / ACC-AHA Cholesterol Guideline"
-    },
-    {
-      q: "Which feature most distinguishes hyperosmolar hyperglycaemic state (HHS) from diabetic ketoacidosis (DKA)?",
-      options: ["Marked ketoacidosis with low pH", "Severe hyperglycaemia and high osmolality without significant ketoacidosis", "Always occurs in type 1 diabetes", "Normal blood glucose"],
-      answer: 1,
-      why: "HHS is characterised by profound hyperglycaemia (often >600 mg/dL) and high serum osmolality with only minimal ketosis and little or no acidosis — unlike DKA, which features significant ketoacidosis. Both are medical emergencies requiring fluids and insulin.",
-      ref: "ADA Hyperglycaemic Crises Guidance"
-    }
-  ]
+   questions: [
+
+{
+q:"According to ADA recommendations, which HbA1c value is considered normal in individuals without diabetes?",
+options:[
+"<5.7%",
+"<6.0%",
+"<6.5%",
+"<7.0%"
+],
+answer:0,
+why:"According to the ADA, an HbA1c value below 5.7% is considered normal. Values between 5.7% and 6.4% indicate prediabetes, while values of 6.5% or higher are diagnostic of diabetes when confirmed.",
+ref:"ADA Standards of Care in Diabetes (2026)"
+},
+
+{
+q:"A 66-year-old man with type 2 diabetes mellitus, hypertension, dyslipidemia, and coronary artery disease is receiving metformin, glimepiride, rosuvastatin, aspirin, and clopidogrel. Clarithromycin is prescribed for a respiratory tract infection. Which adverse effect is most likely to occur?",
+options:[
+"Hyperkalemia",
+"Severe hypoglycemia",
+"Hypertensive crisis",
+"Hyperuricemia"
+],
+answer:1,
+why:"Clarithromycin inhibits cytochrome P450 enzymes, increasing the concentration of sulfonylureas such as glimepiride and thereby significantly increasing the risk of severe hypoglycemia.",
+ref:"Lexicomp Drug Database | Micromedex Database"
+},
+
+{
+q:"A 58-year-old man reports bilateral ankle swelling and a weight gain of 4 kg during the previous month. Current medications include metformin, pioglitazone, telmisartan, and rosuvastatin. Which medication is most likely responsible?",
+options:[
+"Metformin",
+"Pioglitazone",
+"Telmisartan",
+"Rosuvastatin"
+],
+answer:1,
+why:"Pioglitazone is a thiazolidinedione (TZD) that activates PPAR-γ receptors. It increases sodium reabsorption, leading to fluid retention, peripheral edema, weight gain, and worsening heart failure in susceptible patients.",
+ref:"ADA Standards of Care in Diabetes (2026) | PROactive Trial | ESC Guidelines for Cardiovascular Disease in Diabetes (2023)"
+},
+
+{
+q:"Which of the following statements is incorrect?",
+options:[
+"Metformin may cause vitamin B12 deficiency.",
+"Dapagliflozin reduces the risk of heart failure hospitalization.",
+"Pioglitazone may cause fluid retention.",
+"Linagliptin requires dose adjustment in severe renal impairment."
+],
+answer:3,
+why:"Unlike other DPP-4 inhibitors, linagliptin is primarily eliminated through the hepatobiliary system with minimal renal excretion. Therefore, dose adjustment is generally not required even in patients with severe renal impairment.",
+ref:"ADA Standards of Care in Diabetes (2026) | CARMELINA Trial | DAPA-HF Trial | DECLARE-TIMI 58 Trial"
+},
+
+{
+q:"A 72-year-old patient with diabetes and dyslipidemia is receiving rosuvastatin and fenofibrate. Which parameter should be monitored most closely?",
+options:[
+"Serum bilirubin",
+"Serum calcium",
+"Creatine kinase",
+"Serum magnesium"
+],
+answer:2,
+why:"The combination of a statin and a fibrate increases the risk of myopathy and rhabdomyolysis. Creatine kinase (CK) should be monitored when muscle symptoms occur or when clinically indicated.",
+ref:"ADA Standards of Care in Diabetes (2026)"
+}
+
+]
 };
 </script>
 
