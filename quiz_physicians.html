@@ -248,19 +248,33 @@ function renderResult(){
   else if(pct>=60) line="Solid — a good grasp of the essentials.";
   else if(pct>=40) line="Not bad — worth a quick refresher.";
   else line="A good chance to brush up.";
-  stage.innerHTML=`
-    <div class="result">
-      <div class="sub">You scored</div>
-      <div class="score-ring">${score} / ${total}</div>
-      <div class="sub">${pct}%</div>
-      <div class="verdict-line">${line}</div>
-      <button class="btn" id="againBtn">Play again</button>
-      <button class="btn secondary" id="homeBtn" style="margin-top:12px;">Back to start</button>
-    </div>`;
-  document.getElementById('againBtn').onclick=()=>{idx=0;score=0;renderQ();};
-  document.getElementById('homeBtn').onclick=renderStart;
-}
-renderStart();
+ stage.innerHTML=`
+<div class="result">
+
+  <div class="sub">You scored</div>
+
+  <div class="score-ring">${score} / ${total}</div>
+
+  <div class="sub">${pct}%</div>
+
+  <div class="verdict-line">${line}</div>
+
+  <h2 style="color:#0E7C66;margin-top:25px;">🎉 Thank You!</h2>
+
+  <p style="font-size:17px;line-height:1.8;color:#555;">
+    Your participation has been successfully recorded.<br><br>
+
+    <strong>You have been entered into the Lucky Draw.</strong><br>
+
+    Winners will be announced at the end of the conference.
+    <br><br>
+
+    🍀 <strong>Best of Luck!</strong>
+  </p>
+
+</div>`;
+  }
+  renderStart();
 </script>
 </body>
 </html>
