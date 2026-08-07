@@ -110,43 +110,68 @@ header{
 const QUIZ = {
   intro: "Test your diabetes management knowledge across 5 quick questions — from the basics to the trickier calls. Tap an answer to see the correct response and a short rationale.",
   chips: ["5 questions", "Mixed difficulty", "With rationale"],
-  questions: [
-    {
-      q: "What HbA1c target is recommended for most non-pregnant adults with diabetes?",
-      options: ["Below 6.0%", "Below 7.0%", "Below 8.5%", "Below 9.0%"],
-      answer: 1,
-      why: "A general HbA1c goal of <7% is appropriate for most non-pregnant adults. Targets should be individualised — stricter (e.g. <6.5%) for selected patients, and more relaxed for those with limited life expectancy, severe hypoglycaemia risk, or advanced complications.",
-      ref: "ADA Standards of Care in Diabetes"
-    },
-    {
-      q: "In the absence of contraindications, which agent is preferred first-line pharmacologic therapy for type 2 diabetes?",
-      options: ["Sulfonylurea", "Insulin", "Metformin", "Pioglitazone"],
-      answer: 2,
-      why: "Metformin remains a foundational first-line agent — it is effective, weight-neutral, inexpensive, and has a strong safety record. Agents with proven cardiorenal benefit are added or chosen based on the patient's comorbidities.",
-      ref: "ADA / EASD Consensus"
-    },
-    {
-      q: "A patient with type 2 diabetes and established heart failure needs glucose-lowering therapy with cardiac benefit. Which class is preferred?",
-      options: ["DPP-4 inhibitors", "SGLT2 inhibitors", "Sulfonylureas", "Alpha-glucosidase inhibitors"],
-      answer: 1,
-      why: "SGLT2 inhibitors reduce heart-failure hospitalisation and slow CKD progression, and are recommended in type 2 diabetes with heart failure, ASCVD, or chronic kidney disease — independent of baseline HbA1c or metformin use.",
-      ref: "ADA Standards of Care / ESC HF guidelines"
-    },
-    {
-      q: "Which fasting plasma glucose value meets the diagnostic threshold for diabetes?",
-      options: ["≥100 mg/dL", "≥110 mg/dL", "≥126 mg/dL", "≥140 mg/dL"],
-      answer: 2,
-      why: "Fasting plasma glucose ≥126 mg/dL (7.0 mmol/L) is diagnostic. Values of 100–125 mg/dL indicate impaired fasting glucose (prediabetes). A diagnosis is confirmed with a repeat abnormal test unless the patient is clearly symptomatic with unequivocal hyperglycaemia.",
-      ref: "ADA Diagnostic Criteria"
-    },
-    {
-      q: "In type 2 diabetes with chronic kidney disease and persistent albuminuria on a maximally tolerated ACE inhibitor/ARB, which agent reduces CKD progression and cardiovascular events?",
-      options: ["Finerenone", "Spironolactone at high dose", "Amlodipine", "Doxazosin"],
-      answer: 0,
-      why: "Finerenone, a non-steroidal selective mineralocorticoid receptor antagonist, lowers albuminuria and reduces CKD progression and cardiovascular events when added to RAAS blockade in type 2 diabetes with CKD. Monitor serum potassium after initiation.",
-      ref: "ADA Standards of Care / FIDELIO-DKD"
-    }
-  ]
+ questions: [
+{
+  q: "A 72-year-old man with type 2 diabetes mellitus (T2DM), stage 4 chronic kidney disease (CKD), ischemic heart disease, and recurrent hypoglycemia presents with an HbA1c level of 7.8%. Which HbA1c target would be the most appropriate?",
+  options: [
+    "<6.0%",
+    "<6.5%",
+    "<7.0%",
+    "<8.0%"
+  ],
+  answer: 3,
+  why: "Although an HbA1c target below 7% is recommended for most adults, less stringent targets are recommended for patients with advanced age, limited life expectancy, multiple comorbidities, severe hypoglycemia, and advanced chronic kidney disease.",
+  ref: "ADA Standards of Care in Diabetes (2026)"
+},
+{
+  q: "A 42-year-old patient with newly diagnosed T2DM has an HbA1c level of 6.6%, no evidence of cardiovascular disease, normal renal function, and no history of hypoglycemia. Which HbA1c target would be the most appropriate?",
+  options: [
+    "<6.0%",
+    "<6.5%",
+    "<7.5%",
+    "<8.0%"
+  ],
+  answer: 1,
+  why: "The ADA and EASD recommend more intensive glycemic control in younger patients with a long life expectancy and a lower risk of hypoglycemia.",
+  ref: "ADA Standards of Care (2026); ADA/EASD Consensus Report"
+},
+{
+  q: "A 56-year-old woman presents with fasting plasma glucose 112 mg/dL, postprandial plasma glucose 162 mg/dL, and HbA1c 6.8%. Which factor is most likely to explain this discrepancy?",
+  options: [
+    "Vitamin D deficiency",
+    "Hemolytic anemia",
+    "Iron-deficiency anemia",
+    "Hypothyroidism"
+  ],
+  answer: 2,
+  why: "Iron-deficiency anemia prolongs erythrocyte survival, increasing hemoglobin glycation and producing falsely elevated HbA1c values.",
+  ref: "ADA Standards of Care (2026)"
+},
+{
+  q: "A patient with chronic kidney disease undergoing erythropoietin therapy presents with an HbA1c level of 5.9%. Which marker would be the most reliable indicator of glycemic control?",
+  options: [
+    "HbA1c",
+    "Fasting blood glucose",
+    "Glycated albumin",
+    "Random blood glucose"
+  ],
+  answer: 2,
+  why: "Changes in erythrocyte turnover may affect the accuracy of HbA1c measurements. Consequently, glycated albumin is often preferred in these situations.",
+  ref: "ADA Standards of Care (2026); KDIGO Clinical Practice Guideline"
+},
+{
+  q: "A 76-year-old patient with T2DM presents with HbA1c 7.3%, eGFR 24 mL/min/1.73 m², history of three hypoglycemic episodes during the previous month, hemoglobin 9.1 g/dL, and is receiving metformin, glimepiride, and insulin glargine. Which factor is most likely to affect the interpretation of the HbA1c value?",
+  options: [
+    "Chronic constipation",
+    "Anemia",
+    "Obesity",
+    "Hyperuricemia"
+  ],
+  answer: 1,
+  why: "Anemia, chronic kidney disease, and altered erythrocyte turnover may influence HbA1c values.",
+  ref: "KDIGO Clinical Practice Guideline; ADA Standards of Care (2026)"
+}
+]
 };
 </script>
 
