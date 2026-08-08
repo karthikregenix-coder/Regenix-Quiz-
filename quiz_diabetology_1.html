@@ -110,21 +110,21 @@ header{
 const QUIZ = {
   intro: "Test your diabetes management knowledge across 5 quick questions — from the basics to the trickier calls. Tap an answer to see the correct response and a short rationale.",
   chips: ["5 questions", "Mixed difficulty", "With rationale"],
- questions: [
+questions: [
 {
-  q: "A 72-year-old man with type 2 diabetes mellitus (T2DM), stage 4 chronic kidney disease (CKD), ischemic heart disease, and recurrent hypoglycemia presents with an HbA1c level of 7.8%. Which HbA1c target would be the most appropriate?",
+  q: "According to the ADA, what is the normal HbA1c level in people without diabetes?",
   options: [
+    "<5.7%",
     "<6.0%",
     "<6.5%",
-    "<7.0%",
-    "<8.0%"
+    "<7.0%"
   ],
-  answer: 3,
-  why: "Although an HbA1c target below 7% is recommended for most adults, less stringent targets are recommended for patients with advanced age, limited life expectancy, multiple comorbidities, severe hypoglycemia, and advanced chronic kidney disease.",
+  answer: 0,
+  why: "According to the ADA, an HbA1c level below 5.7% is considered normal. Values between 5.7% and 6.4% indicate prediabetes, while values of 6.5% or higher indicate diabetes when confirmed.",
   ref: "ADA Standards of Care in Diabetes (2026)"
 },
 {
-  q: "A 42-year-old patient with newly diagnosed T2DM has an HbA1c level of 6.6%, no evidence of cardiovascular disease, normal renal function, and no history of hypoglycemia. Which HbA1c target would be the most appropriate?",
+  q: "A 42-year-old patient has newly diagnosed type 2 diabetes (HbA1c 6.6%), normal kidney function, and no cardiovascular disease. What is the most appropriate HbA1c target?",
   options: [
     "<6.0%",
     "<6.5%",
@@ -132,23 +132,11 @@ const QUIZ = {
     "<8.0%"
   ],
   answer: 1,
-  why: "The ADA and EASD recommend more intensive glycemic control in younger patients with a long life expectancy and a lower risk of hypoglycemia.",
+  why: "Younger patients with a long life expectancy and a low risk of hypoglycemia benefit from tighter glycemic control.",
   ref: "ADA Standards of Care (2026); ADA/EASD Consensus Report"
 },
 {
-  q: "A 56-year-old woman presents with fasting plasma glucose 112 mg/dL, postprandial plasma glucose 162 mg/dL, and HbA1c 6.8%. Which factor is most likely to explain this discrepancy?",
-  options: [
-    "Vitamin D deficiency",
-    "Hemolytic anemia",
-    "Iron-deficiency anemia",
-    "Hypothyroidism"
-  ],
-  answer: 2,
-  why: "Iron-deficiency anemia prolongs erythrocyte survival, increasing hemoglobin glycation and producing falsely elevated HbA1c values.",
-  ref: "ADA Standards of Care (2026)"
-},
-{
-  q: "A patient with chronic kidney disease undergoing erythropoietin therapy presents with an HbA1c level of 5.9%. Which marker would be the most reliable indicator of glycemic control?",
+  q: "A patient with chronic kidney disease is receiving erythropoietin therapy. Which test is more reliable than HbA1c for assessing blood sugar control?",
   options: [
     "HbA1c",
     "Fasting blood glucose",
@@ -156,23 +144,34 @@ const QUIZ = {
     "Random blood glucose"
   ],
   answer: 2,
-  why: "Changes in erythrocyte turnover may affect the accuracy of HbA1c measurements. Consequently, glycated albumin is often preferred in these situations.",
+  why: "Erythropoietin therapy changes red blood cell turnover, making HbA1c less reliable. Glycated albumin is preferred in this situation.",
   ref: "ADA Standards of Care (2026); KDIGO Clinical Practice Guideline"
 },
 {
-  q: "A 76-year-old patient with T2DM presents with HbA1c 7.3%, eGFR 24 mL/min/1.73 m², history of three hypoglycemic episodes during the previous month, hemoglobin 9.1 g/dL, and is receiving metformin, glimepiride, and insulin glargine. Which factor is most likely to affect the interpretation of the HbA1c value?",
+  q: "A 56-year-old woman has fasting glucose 112 mg/dL, postprandial glucose 162 mg/dL, and HbA1c 6.8%. Which condition can falsely increase HbA1c?",
   options: [
-    "Chronic constipation",
-    "Anemia",
-    "Obesity",
-    "Hyperuricemia"
+    "Vitamin D deficiency",
+    "Hemolytic anemia",
+    "Iron-deficiency anemia",
+    "Hypothyroidism"
   ],
-  answer: 1,
-  why: "Anemia, chronic kidney disease, and altered erythrocyte turnover may influence HbA1c values.",
-  ref: "KDIGO Clinical Practice Guideline; ADA Standards of Care (2026)"
+  answer: 2,
+  why: "Iron-deficiency anemia prolongs red blood cell survival, resulting in falsely elevated HbA1c values.",
+  ref: "ADA Standards of Care (2026)"
+},
+{
+  q: "A 72-year-old man with type 2 diabetes, stage 4 chronic kidney disease, heart disease, and recurrent hypoglycemia has an HbA1c of 7.8%. What is the most appropriate HbA1c target?",
+  options: [
+    "<6.0%",
+    "<6.5%",
+    "<7.0%",
+    "<8.0%"
+  ],
+  answer: 3,
+  why: "Older patients with multiple comorbidities, advanced CKD, and recurrent hypoglycemia require a less stringent HbA1c target.",
+  ref: "ADA Standards of Care in Diabetes (2026)"
 }
 ]
-};
 </script>
 
 <script>
